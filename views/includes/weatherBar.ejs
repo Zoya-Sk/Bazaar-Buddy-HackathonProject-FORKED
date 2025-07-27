@@ -1,7 +1,7 @@
 <div class="row">
   <!-- Left Sidebar -->
   <div class="col-lg-3 col-md-4 col-sm-12 mb-3">
-    <div class="bg-light p-3 rounded shadow-sm test">
+    <div class="p-3 rounded test">
       <h4 class="mb-3">Market Trends</h4>
 
       <!-- Weather & Market Trends Widget -->
@@ -46,16 +46,22 @@
   const cityName = document.getElementById('weatherCity');
   const weatherTemp = document.getElementById('weatherTemp');
   const weatherDesc = document.getElementById('weatherDesc');
-  const marketPrice = document.getElementById('marketPrice');
   const priceAdvice = document.getElementById('priceAdvice');
 
-  const apiKey = '10e6b0aef1c0117d8fd04515831ad1d1'; // coming from your Express route
+  const apiKey = '10e6b0aef1c0117d8fd04515831ad1d1';
+
+  const loadingSpinner = document.createElement('div');
+  loadingSpinner.className = 'spinner-border text-info mt-3';
+  loadingSpinner.role = 'status';
+  loadingSpinner.innerHTML = '<span class="visually-hidden">Loading...</span>';
 
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
-
     const city = cityInput.value.trim();
     const product = productInput.value.trim().toLowerCase();
+
+    weatherResult.classList.add('d-none');
+    form.appendChild(loadingSpinner);
 
     try {
       const res = await fetch(
@@ -67,12 +73,162 @@
       const temp = data.main.temp;
       const desc = data.weather[0].main.toLowerCase();
 
-      const today = new Date();
-      const month = today.getMonth(); // 0 = Jan, 11 = Dec
-      const isFestivalSeason = [9, 10, 11].includes(month); // Oct–Dec
+      const month = new Date().getMonth(); // 0 = Jan
+      const isFestivalSeason = [9, 10, 11].includes(month);
 
-      const rareProducts = ['saffron', 'mango', 'avocado'];
-      const perishableProducts = ['tomato', 'milk', 'curd', 'onion', 'spinach'];
+      const rareProducts = [
+        'saffron',
+        'avocado',
+        'mango',
+        'dragon fruit',
+        'blueberry',
+        'raspberry',
+        'gooseberry',
+        'black garlic',
+        'kale',
+        'quinoa',
+        'artichoke',
+        'wasabi root',
+        'asparagus',
+        'macadamia nuts',
+        'pine nuts',
+        'truffle',
+        'truffle oil',
+        'passion fruit',
+        'fig',
+        'pomegranate',
+        'starfruit',
+        'durian',
+        'morel mushrooms',
+        'enoki mushrooms',
+        'sun-dried tomato',
+        'jalapeno',
+        'bok choy',
+        'edamame',
+        'baby corn',
+        'zucchini',
+        'arugula',
+        'beet greens',
+        'cranberry',
+        'goji berry',
+        'chia seeds',
+        'soursop',
+        'rambutan',
+        'langsat',
+        'longan',
+        'blackberries',
+        'mulberries',
+        'feijoa',
+        'pomelo',
+        'tamarillo',
+        'persimmon',
+        'plantain',
+        'jamun (java plum)',
+        'karonda (natal plum)',
+        'bael (wood apple)',
+        'sitaphal (custard apple)',
+        'ber (indian jujube)',
+        'makhana (fox nuts)',
+        'sabja seeds (sweet basil seeds)',
+        'hemp seeds',
+        'pumpkin seeds',
+        'flax seeds',
+        'matcha powder',
+        'aonori (seaweed flakes)',
+        'seaweed',
+        'spirulina',
+      ];
+
+      const perishableProducts = [
+        'tomato',
+        'milk',
+        'curd',
+        'onion',
+        'spinach',
+        'paneer',
+        'green peas',
+        'banana',
+        'grapes',
+        'watermelon',
+        'papaya',
+        'strawberries',
+        'lychee',
+        'green chillies',
+        'bottle gourd (lauki)',
+        'ash gourd (petha)',
+        'jackfruit (kathal)',
+        'coconut water',
+        'drumstick (moringa pods)',
+        'beans',
+        'brinjal',
+        'coriander leaves',
+        'mint leaves',
+        'curry leaves',
+        'raw turmeric',
+        'raw ginger',
+        'okra (bhindi)',
+        'cauliflower',
+        'cabbage',
+        'radish',
+        'sweet lime (mosambi)',
+        'sapota (chikoo)',
+        'green garlic',
+        'fresh bamboo shoots',
+        'amaranth leaves',
+        'lotus stem',
+        'fresh methi (fenugreek)',
+        'mustard greens (sarson)',
+        'lettuce',
+        'broccoli',
+        'ridge gourd (turai)',
+        'bitter gourd (karela)',
+        'pumpkin',
+        'cucumber',
+        'turnip',
+        'carrot',
+        'beetroot',
+        'spring onion',
+        'garlic sprouts',
+        'french beans',
+        'leeks',
+        'basil',
+        'lemongrass',
+        'galangal',
+        'parsley',
+        'dill leaves',
+        'bay leaves',
+        'white turmeric (kachchi haldi)',
+        'apple',
+        'peach',
+        'plum',
+        'guava',
+        'pear',
+        'lemon',
+        'lime',
+        'orange',
+        'butter',
+        'cheese',
+        'cream',
+        'yogurt',
+        'buttermilk',
+        'ghee',
+        'soy milk',
+        'tofu',
+        'meat',
+        'fish',
+        'chicken',
+        'eggs',
+        'prawns',
+        'lamb',
+        'duck',
+        'cottage cheese',
+        'bread',
+        'pastries',
+        'cooked rice',
+        'chapati/dosa batter',
+        'fresh fruit juices',
+        'fresh coconut',
+      ];
 
       let trend = 'stable';
       let advice = '🟢 No major price change expected. You can buy today.';
@@ -88,29 +244,34 @@
         (desc.includes('rain') || temp < 25)
       ) {
         trend = 'drop';
-        advice =
-          '🔻 Weather conditions may cause a price drop. Wait before buying.';
+        advice = '🔻 Weather may lower prices. Wait before buying.';
       }
 
       if (isFestivalSeason && ['onion', 'paneer', 'ghee'].includes(product)) {
         trend = 'spike';
         advice =
-          '🎉 Festival demand detected. Prices may spike. Avoid bulk buying now.';
+          '🎉 Festival season likely to push prices up. Avoid stocking up.';
       }
 
-      weatherResult.classList.remove('d-none');
-      cityName.textContent = `📍 ${data.name}`;
-      weatherTemp.textContent = `🌡️ ${temp}°C`;
-      weatherDesc.textContent = `🌥️ ${desc}`;
-      priceAdvice.textContent = advice;
-      priceAdvice.style.color =
-        trend === 'spike' ? 'red' : trend === 'drop' ? 'blue' : 'green';
+      // Animate and display result
+      setTimeout(() => {
+        loadingSpinner.remove();
+        weatherResult.classList.remove('d-none');
+        weatherResult.classList.add('animate__animated', 'animate__fadeInUp');
+        cityName.textContent = `📍 ${data.name}`;
+        weatherTemp.textContent = `🌡️ ${temp}°C`;
+        priceAdvice.textContent = advice;
+        priceAdvice.style.color =
+          trend === 'spike' ? 'red' : trend === 'drop' ? 'blue' : 'green';
+      }, 600);
     } catch (err) {
+      loadingSpinner.remove();
       weatherResult.classList.remove('d-none');
-      cityName.textContent = 'Error';
+      weatherResult.classList.add('animate__animated', 'animate__shakeX');
+      cityName.textContent = '⚠️ Error';
       weatherTemp.textContent = '';
-      weatherDesc.textContent = 'City not found or API issue.';
       priceAdvice.textContent = '';
+      priceAdvice.style.color = 'gray';
     }
   });
 </script>

@@ -3,6 +3,8 @@ body {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
+  background-color: #181d1b !important;
+  color: #e0e0e0 !important;
 }
 
 .container {
@@ -12,50 +14,101 @@ body {
 /* Navbar */
 .navbar {
   height: auto;
-  background-color: #fff;
+  background-color: #181d1b;
+  color: #e0e0e0 !important;
 }
 
-.fa-meteor {
-  color: #fe424d;
+.fa-lemon {
+  color: #0d6efd;
   font-size: 2.5rem;
 }
 
 .nav-link {
-  color: #222222 !important;
+  color: #ccc !important;
   padding-left: 0.5rem;
   padding-right: 0.5rem;
 }
 
+.navbar-nav .nav-link {
+  color: #fff !important;
+  transition: all 0.3s ease-in-out;
+}
+
+.navbar-nav .nav-link:hover {
+  transform: scale(1.05);
+  text-shadow: 0 0 5px rgba(255, 255, 255, 0.3);
+}
+
+.nav-hover:hover {
+  background-color: #0d6efd;
+  border-radius: 50px !important;
+  transition: background-color 0.3s ease;
+  text-shadow: 0 0 5px rgba(255, 255, 255, 0.1);
+}
+
+.navbar-brand i {
+  font-size: 1.5rem;
+  transition: transform 0.3s ease;
+}
+
+.navbar-brand:hover i {
+  transform: rotate(-10deg) scale(1.2);
+}
+
+
 /* Footer */
-.f-info-links a {
-  text-decoration: none;
-  color: #222222;
+.footer {
+  background: #1f1f1f;
+  color: #ccc;
+  padding: 2rem 0;
+  font-size: 0.95rem;
+  border-top: 2px solid #333;
+  margin-top: auto;
 }
 
-.f-info-links a:hover {
-  text-decoration: underline;
+.f-info-socials a {
+  margin: 0 0.5rem;
+  color: #ccc;
+  transition: color 0.3s ease, transform 0.3s ease;
 }
 
-.f-info-links,
-.f-info-socials,
+.f-info-socials a:hover {
+  color: #ffd700;
+  transform: scale(1.2);
+}
+
 .f-info-brand {
-  width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
+  font-weight: 500;
 }
 
-.f-info-socials i {
-  margin-right: 1rem;
-  font-size: 1.2rem;
-}
-
-.f-info {
-  text-align: center;
-  height: 8rem;
-  background-color: #ebebeb;
+.f-info-links {
   display: flex;
-  flex-wrap: wrap;
   justify-content: center;
-  align-items: space-evenly;
+  gap: 1.2rem;
+}
+
+.f-info-links a {
+  color: #ccc;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.f-info-links a:hover {
+  color: #fff;
+  text-decoration: underline;
+}
+
+@media (max-width: 768px) {
+  .f-info .row > div {
+    margin-bottom: 1rem;
+  }
+
+  .f-info-links,
+  .f-info-socials,
+  .f-info-brand {
+    justify-content: center;
+  }
 }

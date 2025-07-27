@@ -28,7 +28,7 @@
 }
 
 .filter-link {
-  color: #fe424d;
+  color: #0d6efd;
   text-decoration: none;
 }
 
@@ -46,26 +46,50 @@
 
 .filter-link p {
   font-size: 0.8rem;
-  color: #fe424d;
+  color: #0d6efd;
 }
 
 /* Tax Toggle Button */
+
+#check {
+  color: #2e7d32;              /* Dark green for certification */
+  font-weight: 600;
+  background-color: #e8f5e9;   /* Light green background */
+  border: 1px solid #c8e6c9;   /* Soft border */
+  padding: 2px 6px;
+  border-radius: 5px;
+  font-size: 0.85rem;
+  display: inline-block;
+}
+
+
 .tax-info {
+  font-weight: bold;
+  color: #ffffff;
+  font-size: 0.85rem;
   display: none;
-  color: #2f55be;
+  transition: opacity 0.3s ease;
 }
 
 .tax-toggle {
-  border: 1px solid #fe424d;
+  border: 1px solid #0d6efd;
   border-radius: 1rem;
   height: 3rem;
   width: 15%;
-  padding: 0rem 1rem 0rem 1rem;
+  padding: 0 1rem;
   margin-left: 0.5rem;
   margin-top: 0.5rem;
   display: flex;
   align-items: center;
   justify-content: center;
+  background: rgba(13, 110, 253, 0.05);
+  transition: all 0.3s ease;
+}
+
+.tax-toggle:hover {
+  background: rgba(13, 110, 253, 0.15);
+  box-shadow: 0 0 10px rgba(13, 110, 253, 0.3);
+  cursor: pointer;
 }
 
 .tax-label {
@@ -87,29 +111,154 @@
   }
 
   .listing-card {
-    width: 75%;
+    width: 50%;
   }
 }
 
 /* Sidebar styling */
 .main-con {
   display: flex;
+  flex-wrap: wrap;
+  /* gap: 2rem; */
 }
 
 .test {
-  height: 100vh;
+  background: linear-gradient(
+    145deg,
+    rgba(30, 36, 33, 0.85),
+    rgba(20, 24, 22, 0.85)
+  );
+  color: #f0f0f0 !important;
+  height: 65vh;
   width: 15rem;
-  padding: 20px;
+  padding: 24px;
   margin-right: 2rem;
+  border-radius: 16px;
   position: sticky;
-  top: 0;
+  top: 20px;
   z-index: 1000;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(10px);
+  transition: all 0.3s ease;
 }
+
+/* Sidebar heading */
+.test h4 {
+  font-size: 1.4rem;
+  font-weight: 600;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  padding-bottom: 0.5rem;
+  margin-bottom: 1.5rem;
+  color: #ffffff;
+}
+
+/* Sidebar links */
+.test a {
+  display: block;
+  padding: 0.5rem 0;
+  color: #bbbbbb;
+  text-decoration: none;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+.test a:hover {
+  color: #ffffff;
+  background-color: rgba(255, 255, 255, 0.05);
+  border-radius: 8px;
+  padding-left: 12px;
+}
+
+/* Weather widget form */
+.weather-widget input {
+  background-color: #fff !important;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: #000000;
+  border-radius: 8px;
+  padding: 0.6rem;
+  transition: border-color 0.3s ease;
+}
+
+.weather-widget input:focus {
+  outline: none;
+  border-color: #0d6efd;
+  background-color: rgba(255, 255, 255, 0.08);
+}
+
+/* Button */
+.weather-widget button {
+  background-color: #0d6efd;
+  border: none;
+  border-radius: 8px;
+  font-weight: 500;
+  transition: background-color 0.3s ease;
+}
+
+.weather-widget button:hover {
+  background-color: #0b5ed7;
+}
+
+/* Weather Result Display */
+#weatherResult {
+  background-color: #ffffff08;
+  border-radius: 10px;
+  margin-bottom: 1rem;
+  padding: 12px;
+  margin-top: 1rem;
+  color: #f1f1f1;
+}
+
+#weatherCity {
+  font-size: 1rem;
+  font-weight: bold;
+}
+
+#priceAdvice {
+  font-size: 0.9rem;
+  color: #0dcaf0;
+}
+
+/* Add this if you're not using animate.css already */
+@keyframes fadeInUp {
+  0% {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0px);
+    opacity: 1;
+  }
+}
+
+.animate__fadeInUp {
+  animation: fadeInUp 0.6s ease-in-out;
+}
+
+.animate__shakeX {
+  animation: shake 0.6s ease;
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  20%, 60% { transform: translateX(-8px); }
+  40%, 80% { transform: translateX(8px); }
+}
+
+
 
 /* Cards */
 .listing-card {
+  background-color: #181d1b !important;
+  color: #fff !important;
   border: none !important;
   margin-bottom: 2rem;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.listing-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
 }
 
 .card-img-top {
@@ -120,7 +269,8 @@
 }
 
 .card-body {
-  padding: 0 !important;
+  padding: 1rem 0rem 0rem 1rem !important;
+  margin-bottom: 1rem;
 }
 
 .card-text p {

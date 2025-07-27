@@ -41,7 +41,14 @@
                 <b><%= listing.title %></b>
                 <%= listing.quantity.toLocaleString("en-IN")%><%= listing.unit
                 %> <% if (listing.reviews && listing.reviews.length > 5) { %>
-                &nbsp;&nbsp;&nbsp;&nbsp; <i class="tax-info">✔Certified</i>
+                &nbsp;&nbsp;&nbsp;&nbsp;
+                <i
+                  id="check"
+                  class="tax-info d-none badge bg-success text-light fw-semibold px-2 py-1 small"
+                >
+                  ✔ Certified
+                </i>
+
                 <% } %>
 
                 <br />
@@ -60,14 +67,14 @@
   let taxSwitch = document.getElementById('switchCheckDefault');
 
   taxSwitch.addEventListener('click', () => {
-    let taxInfo = document.getElementsByClassName('tax-info');
-    for (info of taxInfo) {
-      if (info.style.display != 'inline') {
-        info.style.display = 'inline';
+    const taxInfos = document.querySelectorAll('.tax-info');
+    taxInfos.forEach((info) => {
+      if (info.classList.contains('d-none')) {
+        info.classList.remove('d-none');
       } else {
-        info.style.display = 'none';
+        info.classList.add('d-none');
       }
-    }
+    });
   });
 
   function updateLabelText() {

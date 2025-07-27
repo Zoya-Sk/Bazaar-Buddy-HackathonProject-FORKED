@@ -7,23 +7,35 @@
   }
 
   .search-input {
+    background-color: #1f2221;
+    color: #e0e0e0 !important;
+    border: 1px solid #3a3d3c;
     border-radius: 3rem;
     width: 30rem;
+    padding: 0.5rem 1rem;
+    transition: border-color 0.3s;
+  }
+
+  .search-input:focus {
+    border-color: #0d6efd;
+    outline: none;
   }
 
   .search-btn {
-    background-color: #fe424d;
-    color: #fff;
+    background-color: #0d6efd;
+    color: #ffffff;
+    border: none;
     border-radius: 3rem;
     padding: 0.4rem 1rem;
     display: flex;
     align-items: center;
+    transition: background-color 0.3s, border 0.3s;
   }
 
   .search-btn:hover {
-    border: 2px solid rgb(221, 86, 86);
-    background-color: #fe424d;
-    color: #fff;
+    border: 1.5px solid #0a58ca;
+    background-color: #0a58ca;
+    color: #ffffff;
   }
 
   .search-btn i {
@@ -62,9 +74,11 @@
     .explore-link {
       display: none;
     }
+
     .search-input {
       width: 10rem;
     }
+
     .search-btn {
       font-size: 1rem;
     }
@@ -81,13 +95,26 @@
   <div
     class="container-fluid d-flex align-items-center justify-content-between flex-wrap"
   >
-    <div class="d-flex align-items-center gap-2">
-      <a class="navbar-brand me-2" href="/listings">
-        <i class="fa-solid fa-meteor"></i>
+    <div
+      class="d-flex align-items-center gap-3 px-3 py-2 nav-wrapper shadow-sm rounded"
+    >
+      <a
+        class="navbar-brand me-2 fs-4 text-warning"
+        href="/listings"
+        title="Bazaar Buddy"
+      >
+        <i class="fa-solid fa-lemon"></i>
       </a>
+
       <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-        <div class="navbar-nav text-end">
-          <a class="nav-link explore-link" href="/listings">Explore</a>
+        <div class="navbar-nav">
+          <a
+            class="nav-link explore-link fw-semibold text-light px-3 py-2 rounded nav-hover"
+            href="/listings"
+            title="Browse listings"
+          >
+            Explore
+          </a>
         </div>
       </div>
     </div>
@@ -121,13 +148,30 @@
       class="collapse navbar-collapse justify-content-end"
       id="navbarNavAltMarkup"
     >
-      <div class="navbar-nav text-end">
-        <a class="nav-link" href="/listings/new">Add new Listing</a>
+      <div class="navbar-nav text-end gap-2 px-2">
+        <a
+          class="nav-link btn btn-sm btn-outline-primary rounded-pill"
+          href="/listings/new"
+        >
+          Add new Product
+        </a>
         <% if (!currUser) { %>
-        <a class="nav-link" href="/signup"><b>Sign up</b></a>
-        <a class="nav-link" href="/login"><b>Log in</b></a>
+        <a
+          class="nav-link btn btn-sm btn-primary rounded-pill px-3"
+          href="/signup"
+          ><b>Sign up</b></a
+        >
+        <a
+          class="nav-link btn btn-sm btn-outline-primary rounded-pill px-3"
+          href="/login"
+          ><b>Log in</b></a
+        >
         <% } %> <% if (currUser) { %>
-        <a class="nav-link" href="/logout"><b>Log out</b></a>
+        <a
+          class="nav-link btn btn-sm btn-danger rounded-pill px-3"
+          href="/logout"
+          ><b>Log out</b></a
+        >
         <% } %>
       </div>
     </div>
