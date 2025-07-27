@@ -1,12 +1,14 @@
 <% layout("/layouts/boilerplate") %>
+
 <script>
   const mapToken = '<%= process.env.MAP_TOKEN %>';
   const listing = '<%- JSON.stringify(listing) %>';
 </script>
+
 <div class="card show-card listing-card">
   <div class="show-listing">
     <p class="card-text">
-      <b>Owned by: <%= listing.owner.username %> </b><i></i>
+      <b>Owned by: <%= listing.owner.username %> </b>
     </p>
 
     <div class="card-body">

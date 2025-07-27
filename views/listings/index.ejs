@@ -1,43 +1,7 @@
 <% layout("/layouts/boilerplate") %>
 
 <div id="filters">
-  <div class="filter-icons">
-    <div class="filter">
-      <a href="/filter?category=Fruits" class="filter-link">
-        <div><i class="fa-solid fa-apple-whole"></i></div>
-        <p>Fruits</p>
-      </a>
-      <a href="/filter?category=Vegetables" class="filter-link">
-        <div><i class="fa-solid fa-leaf"></i></div>
-        <p>Vegies</p>
-      </a>
-      <a href="/filter?category=Spices" class="filter-link">
-        <div><i class="fa-solid fa-mortar-pestle"></i></div>
-        <p>Spices</p>
-      </a>
-      <a href="/filter?category=Dairy" class="filter-link">
-        <div><i class="fa-solid fa-mug-hot"></i></div>
-        <p>Dairy</p>
-      </a>
-      <a href="/filter?category=Poultry" class="filter-link">
-        <div><i class="fa-solid fa-egg"></i></div>
-        <p>Poultry</p>
-      </a>
-      <a href="/filter?category=Meat" class="filter-link">
-        <div><i class="fa-solid fa-drumstick-bite"></i></div>
-        <p>Meat</p>
-      </a>
-      <a href="/filter?category=Berry" class="filter-link">
-        <div><i class="fa-solid fa-seedling"></i></div>
-        <p>Berry</p>
-      </a>
-      <a href="/filter?category=Farms" class="filter-link">
-        <div><i class="fa-solid fa-tractor"></i></div>
-        <p>Farms</p>
-      </a>
-    </div>
-  </div>
-
+  <%- include("../includes/filter.ejs") %>
   <div class="tax-toggle">
     <div class="form-check-reverse form-switch">
       <input
@@ -74,10 +38,14 @@
             />
             <div class="card-body">
               <p class="card-text mb-0">
-                <b><%= listing.title %></b> <%=
-                listing.quantity.toLocaleString("en-IN")%><%= listing.unit %><br />
+                <b><%= listing.title %></b>
+                <%= listing.quantity.toLocaleString("en-IN")%><%= listing.unit
+                %> <% if (listing.reviews && listing.reviews.length > 5) { %>
+                &nbsp;&nbsp;&nbsp;&nbsp; <i class="tax-info">✔Certified</i>
+                <% } %>
+
+                <br />
                 <b>&#8377;<%= listing.price.toLocaleString("en-IN") %></b>
-                <i class="tax-info"> &nbsp;&nbsp;✔</i>
               </p>
             </div>
           </div>

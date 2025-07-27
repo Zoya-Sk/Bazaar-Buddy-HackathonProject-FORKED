@@ -52,6 +52,7 @@
 /* Tax Toggle Button */
 .tax-info {
   display: none;
+  color: #2f55be;
 }
 
 .tax-toggle {
