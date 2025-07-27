@@ -1,0 +1,120 @@
+<% layout("/layouts/boilerplate") %>
+
+<div class="create-listing">
+  <div class="new-listing">
+    <h3>Add New Product</h3>
+    <form
+      action="/listings"
+      method="POST"
+      novalidate
+      class="needs-validation"
+      enctype="multipart/form-data"
+    >
+      <div class="new-title">
+        <label for="title" class="form-label">Product Name</label>
+        <input
+          type="text"
+          name="listing[title]"
+          placeholder="Add Product Name"
+          class="form-control"
+          required
+        />
+        <div class="valid-feedback">Name looks good!</div>
+      </div>
+
+      <div class="new-description">
+        <label for="description" class="form-label">Description</label>
+        <textarea
+          name="listing[description]"
+          placeholder="Add description"
+          class="form-control"
+          required
+        ></textarea>
+        <div class="invalid-feedback">Please enter a short description</div>
+      </div>
+
+      <div class="row">
+        <div class="new-price col-md-6">
+          <label for="price" class="form-label">Price</label>
+          <input
+            name="listing[price]"
+            placeholder="1200"
+            class="form-control"
+            required
+          />
+          <div class="invalid-feedback">Price should be valid</div>
+        </div>
+
+        <div class="new-category col-md-6">
+          <label for="category" class="form-label">Choose a category:</label>
+          <select name="listing[category]" id="category" class="form-control">
+            <option value="Fruits">Fruits</option>
+            <option value="Vegetables">Vegetables</option>
+            <option value="Spices">Spices</option>
+            <option value="Dairy">Dairy</option>
+            <option value="Poultry">Poultry</option>
+            <option value="Meat">Meat</option>
+            <option value="Berry">Berry's</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="new-quantity col-md-6">
+          <label for="quantity" class="form-label">quantity</label>
+          <input
+            name="listing[quantity]"
+            placeholder="12"
+            class="form-control"
+            required
+          />
+          <div class="invalid-feedback">quantity should be valid</div>
+        </div>
+        
+        <div class="new-unit col-md-6">
+          <label for="unit" class="form-label">Choose a category:</label>
+          <select name="listing[unit]" id="unit" class="form-control">
+            <option value="kg">kg</option>
+            <option value="g">g</option>
+            <option value="mg">mg</option>
+            <option value="l">L</option>
+            <option value="ml">ml</option>
+            <option value="Ton">Ton</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="new-img col-md-4">
+          <label for="image" class="form-label">Upload Image</label>
+          <input name="listing[image]" type="file" class="form-control" />
+        </div>
+        <div class="new-country col-md-4">
+          <label for="country" class="form-label">Country</label>
+          <input
+            type="text"
+            name="listing[country]"
+            placeholder="India"
+            class="form-control"
+            required
+          />
+          <div class="invalid-feedback">Country name should be valid</div>
+        </div>
+
+        <div class="new-location col-md-4">
+          <label for="location" class="form-label">Location</label>
+          <input
+            type="text"
+            name="listing[location]"
+            placeholder="Mumbai, Maharashtra"
+            class="form-control"
+            required
+          />
+          <div class="invalid-feedback">Location should be valid</div>
+        </div>
+      </div>
+
+      <button class="btn btn-dark add-btn mb-5">Add</button>
+    </form>
+  </div>
+</div>

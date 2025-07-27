@@ -1,0 +1,116 @@
+<% layout("/layouts/boilerplate") %>
+
+<div id="filters">
+  <div class="filter-icons">
+    <div class="filter">
+      <a href="/filter?category=Fruits" class="filter-link">
+        <div><i class="fa-solid fa-apple-whole"></i></div>
+        <p>Fruits</p>
+      </a>
+      <a href="/filter?category=Vegetables" class="filter-link">
+        <div><i class="fa-solid fa-leaf"></i></div>
+        <p>Vegies</p>
+      </a>
+      <a href="/filter?category=Spices" class="filter-link">
+        <div><i class="fa-solid fa-mortar-pestle"></i></div>
+        <p>Spices</p>
+      </a>
+      <a href="/filter?category=Dairy" class="filter-link">
+        <div><i class="fa-solid fa-mug-hot"></i></div>
+        <p>Dairy</p>
+      </a>
+      <a href="/filter?category=Poultry" class="filter-link">
+        <div><i class="fa-solid fa-egg"></i></div>
+        <p>Poultry</p>
+      </a>
+      <a href="/filter?category=Meat" class="filter-link">
+        <div><i class="fa-solid fa-drumstick-bite"></i></div>
+        <p>Meat</p>
+      </a>
+      <a href="/filter?category=Berry" class="filter-link">
+        <div><i class="fa-solid fa-seedling"></i></div>
+        <p>Berry</p>
+      </a>
+      <a href="/filter?category=Farms" class="filter-link">
+        <div><i class="fa-solid fa-tractor"></i></div>
+        <p>Farms</p>
+      </a>
+    </div>
+  </div>
+
+  <div class="tax-toggle">
+    <div class="form-check-reverse form-switch">
+      <input
+        class="form-check-input"
+        type="checkbox"
+        role="switch"
+        id="switchCheckDefault"
+      />
+      <label class="form-check-label tax-label" for="switchCheckDefault"
+        >Verified!
+      </label>
+    </div>
+  </div>
+</div>
+
+<div class="container-fluid main-con mt-3">
+  <%- include("../includes/weatherBar.ejs") %>
+
+  <!-- Right Content (Listings) -->
+  <div class="col-lg-50 col-md-8 col-sm-12">
+    <div class="row row-cols-lg-3 row-cols-md-2 row-cols-1 mt-3">
+      <% for(let listing of allListings) { %>
+      <div class="col">
+        <a
+          href="/listings/<%= listing._id %>"
+          class="listing-link text-decoration-none"
+        >
+          <div class="card listing-card h-100">
+            <img
+              src="<%= listing.image.url %>"
+              class="card-img-top"
+              alt="listing_image"
+              style="height: 20rem; object-fit: cover"
+            />
+            <div class="card-body">
+              <p class="card-text mb-0">
+                <b><%= listing.title %></b> <%=
+                listing.quantity.toLocaleString("en-IN")%><%= listing.unit %><br />
+                <b>&#8377;<%= listing.price.toLocaleString("en-IN") %></b>
+                <i class="tax-info"> &nbsp;&nbsp;✔</i>
+              </p>
+            </div>
+          </div>
+        </a>
+      </div>
+      <% } %>
+    </div>
+  </div>
+</div>
+
+<script>
+  let taxSwitch = document.getElementById('switchCheckDefault');
+
+  taxSwitch.addEventListener('click', () => {
+    let taxInfo = document.getElementsByClassName('tax-info');
+    for (info of taxInfo) {
+      if (info.style.display != 'inline') {
+        info.style.display = 'inline';
+      } else {
+        info.style.display = 'none';
+      }
+    }
+  });
+
+  function updateLabelText() {
+    const label = document.querySelector('.tax-label');
+    if (window.innerWidth < 992) {
+      label.textContent = '✔';
+    } else {
+      label.textContent = 'Verified!';
+    }
+  }
+
+  window.addEventListener('resize', updateLabelText);
+  window.addEventListener('DOMContentLoaded', updateLabelText);
+</script>

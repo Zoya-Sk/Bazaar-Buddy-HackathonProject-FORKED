@@ -1,0 +1,79 @@
+<% layout("/layouts/boilerplate") %>
+<style>
+  .signup {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-content: center;
+    justify-content: top;
+    width: auto;
+    font-size: 1rem;
+    margin-top: 2rem !important;
+  }
+
+  .signup-form div {
+    margin-bottom: 1.5rem !important;
+  }
+
+  @media (max-width: 990px) {
+    .signup {
+      width: auto;
+      margin: 1rem;
+      font-size: 1rem;
+    }
+
+    .signup-title {
+      margin-top: 3rem !important;
+    }
+
+    .signup-id,
+    .signup-email,
+    .signup-pw {
+      margin-bottom: 2rem;
+    }
+  }
+</style>
+
+<div class="signup mt-3">
+  <h1 class="signup-title">SignUp on SerenoStay</h1>
+  <div class="signup-form">
+    <form action="/signup" method="POST" class="needs-validation" novalidate>
+      <div class="signup-id">
+        <label for="username" class="form-label">Username</label>
+        <input
+          type="text"
+          name="username"
+          id="username"
+          class="form-control"
+          required
+        />
+        <div class="valid-feedback">Looks good!</div>
+      </div>
+
+      <div class="signup-email">
+        <label for="email" class="form-label">Email</label>
+        <input
+          type="email"
+          name="email"
+          id="email"
+          class="form-control"
+          required
+        />
+      </div>
+
+      <div class="signup-pw">
+        <label for="password" class="form-label">Password</label>
+        <input
+          type="password"
+          name="password"
+          id="password"
+          class="form-control"
+          required
+        />
+      </div>
+
+      <button class="btn btn-success mt-3 mb-5">SingUp</button>
+    </form>
+  </div>
+</div>

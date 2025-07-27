@@ -1,0 +1,116 @@
+<div class="row">
+  <!-- Left Sidebar -->
+  <div class="col-lg-3 col-md-4 col-sm-12 mb-3">
+    <div class="bg-light p-3 rounded shadow-sm test">
+      <h4 class="mb-3">Market Trends</h4>
+
+      <!-- Weather & Market Trends Widget -->
+      <div class="weather-widget mb-3">
+        <form id="weatherForm" class="d-flex flex-column gap-2">
+          <input
+            type="text"
+            id="cityInput"
+            class="form-control"
+            placeholder="Enter city"
+            required
+          />
+          <input
+            type="text"
+            id="productInput"
+            class="form-control"
+            placeholder="Enter product"
+            required
+          />
+          <button type="submit" class="btn btn-sm btn-primary">
+            Get Trends
+          </button>
+        </form>
+
+        <div id="weatherResult" class="mt-3 text-center small d-none">
+          <h6 id="weatherCity" class="mb-1"></h6>
+          <div id="weatherTemp"></div>
+          <div id="weatherDesc" class="text-muted"></div>
+          <div id="priceAdvice" class="mt-2 fw-bold"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  const form = document.getElementById('weatherForm');
+  const cityInput = document.getElementById('cityInput');
+  const productInput = document.getElementById('productInput');
+
+  const weatherResult = document.getElementById('weatherResult');
+  const cityName = document.getElementById('weatherCity');
+  const weatherTemp = document.getElementById('weatherTemp');
+  const weatherDesc = document.getElementById('weatherDesc');
+  const marketPrice = document.getElementById('marketPrice');
+  const priceAdvice = document.getElementById('priceAdvice');
+
+  const apiKey = '<%= weatherApiKey %>'; // coming from your Express route
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    const city = cityInput.value.trim();
+    const product = productInput.value.trim().toLowerCase();
+
+    try {
+      const res = await fetch(
+        `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`,
+      );
+      const data = await res.json();
+      if (data.cod !== 200) throw new Error(data.message);
+
+      const temp = data.main.temp;
+      const desc = data.weather[0].main.toLowerCase();
+
+      const today = new Date();
+      const month = today.getMonth(); // 0 = Jan, 11 = Dec
+      const isFestivalSeason = [9, 10, 11].includes(month); // Oct–Dec
+
+      const rareProducts = ['saffron', 'mango', 'avocado'];
+      const perishableProducts = ['tomato', 'milk', 'curd', 'onion', 'spinach'];
+
+      let trend = 'stable';
+      let advice = '🟢 No major price change expected. You can buy today.';
+
+      if (rareProducts.includes(product)) {
+        trend = 'spike';
+        advice =
+          '🔺 Price spike likely due to product rarity. Consider delaying purchase.';
+      }
+
+      if (
+        perishableProducts.includes(product) &&
+        (desc.includes('rain') || temp < 25)
+      ) {
+        trend = 'drop';
+        advice =
+          '🔻 Weather conditions may cause a price drop. Wait before buying.';
+      }
+
+      if (isFestivalSeason && ['onion', 'paneer', 'ghee'].includes(product)) {
+        trend = 'spike';
+        advice =
+          '🎉 Festival demand detected. Prices may spike. Avoid bulk buying now.';
+      }
+
+      weatherResult.classList.remove('d-none');
+      cityName.textContent = `📍 ${data.name}`;
+      weatherTemp.textContent = `🌡️ ${temp}°C`;
+      weatherDesc.textContent = `🌥️ ${desc}`;
+      priceAdvice.textContent = advice;
+      priceAdvice.style.color =
+        trend === 'spike' ? 'red' : trend === 'drop' ? 'blue' : 'green';
+    } catch (err) {
+      weatherResult.classList.remove('d-none');
+      cityName.textContent = 'Error';
+      weatherTemp.textContent = '';
+      weatherDesc.textContent = 'City not found or API issue.';
+      priceAdvice.textContent = '';
+    }
+  });
+</script>
