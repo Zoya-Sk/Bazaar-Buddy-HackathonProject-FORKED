@@ -28,9 +28,10 @@ const reviewRouter = require('./routes/review.js');
 const userRouter = require('./routes/user.js');
 
 // Connecting Mongo Atlas
-// const dbUrl = process.env.ATLASDB_URL;
+const dbUrl = process.env.ATLASDB_URL;
+
 // Connecting DataBase
-const MONGO_URL = 'mongodb://127.0.0.1:27017/Local-Supply';
+// const MONGO_URL = 'mongodb://127.0.0.1:27017/Local-Supply';
 
 main()
   .then(() => {
@@ -41,7 +42,7 @@ main()
   });
 
 async function main() {
-  await mongoose.connect(MONGO_URL);
+  await mongoose.connect(dbUrl);
 }
 
 app.set('view engine', 'ejs');
@@ -53,20 +54,20 @@ app.use(express.static(path.join(__dirname, '/public')));
 app.use(express.urlencoded({ extended: true }));
 
 // Session Info will store in Mongo Atlas
-// const store = MongoStore.create({
-//   mongoUrl: dbUrl,
-//   crypto: {
-//     secret: process.env.SECRET,
-//   },
-//   touchAfter: 24 * 3600,
-// });
+const store = MongoStore.create({
+  mongoUrl: dbUrl,
+  crypto: {
+    secret: process.env.SECRET,
+  },
+  touchAfter: 24 * 3600,
+});
 
-// store.on('error', () => {
-//   console.log('ERROR in MONGO SESSION STORE', err);
-// });
+store.on('error', () => {
+  console.log('ERROR in MONGO SESSION STORE', err);
+});
 
 const sessionOptions = {
-  // store,
+  store,
   secret: process.env.SECRET,
   resave: false,
   saveUninitialized: true,
